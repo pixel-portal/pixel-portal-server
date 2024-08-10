@@ -2,24 +2,19 @@ import axios, { AxiosError, type AxiosInstance } from "axios";
 
 import type GameState from "../../state/game-state";
 import type PlayerManager from "../../player/player-manager";
+import type ServerConfiguration from "../configuration/server-configuration";
 
 
 export default class StarportServerClient {
-  starportEndpoint: string;
+  configuration: ServerConfiguration;
 
-  clientPort: number;
-  clientId: string;
-  clientRegion: string;
   gameState: GameState;
   playerManager: PlayerManager;
 
   client: AxiosInstance;
 
-  constructor (starportEndpoint: string, clientPort: number, clientId: string, clientRegion: string, gameState: GameState, playerManager: PlayerManager) {
-    this.starportEndpoint = starportEndpoint;
-    this.clientPort = clientPort;
-    this.clientId = clientId;
-    this.clientRegion = clientRegion;
+  constructor (configuration: ServerConfiguration, gameState: GameState, playerManager: PlayerManager) {
+    this.configuration = configuration;
     this.gameState = gameState;
     this.playerManager = playerManager;
     this.client = axios.create();
@@ -27,10 +22,11 @@ export default class StarportServerClient {
 
   async ping (): Promise<void> {
     try {
-      await this.client.post(`${this.starportEndpoint}/ping/terra`, {
-        clientPort: this.clientPort,
-        clientId: this.clientId,
-        clientRegion: this.clientRegion,
+      await this.client.post(`${this.configuration.starportEndpoint}/ping/terra`, {
+        clientHttpPort: this.configuration.httpPort,
+        clientPacketPort: this.configuration.packetPort,
+        clientId: this.configuration.id,
+        clientRegion: this.configuration.region,
 
         gameId: this.gameState.gameId,
 

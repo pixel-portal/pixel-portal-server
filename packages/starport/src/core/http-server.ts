@@ -103,7 +103,8 @@ export default class HttpServer {
     const playerId = Utils.uuid();
     const name = `Guest_${playerId.substring(0, 6)}`;
 
-    const registered = await this.terraServerClient.register(terraServer.url, token, userId, playerId, name);
+    console.log(`Attempting to register ${name} with client ${terraServer.httpUrl}`);
+    const registered = await this.terraServerClient.register(terraServer.httpUrl, token, userId, playerId, name);
     if (!registered) {
       return Response.json({ code: 120 }, { headers: corsHeaders, status: 400 });
     }
@@ -126,7 +127,8 @@ export default class HttpServer {
     const clientIp = server.requestIP(req);
     const formData = await req.json();
 
-    const clientPort = formData['clientPort'];
+    const clientHttpPort = formData['clientHttpPort'];
+    const clientPacketPort = formData['clientPacketPort'];
     const clientId = formData['clientId'];
     const clientRegion = formData['clientRegion'];
 
@@ -135,7 +137,7 @@ export default class HttpServer {
     }
 
     const address = clientIp.family === "IPv6" ? `[${clientIp.address}]` : clientIp.address;
-    const terraServer = this.terraServerManager.update(address, clientPort, clientId, clientRegion, {
+    const terraServer = this.terraServerManager.update(address, clientHttpPort, clientPacketPort, clientId, clientRegion, {
       gameId: formData['gameId'],
       mapId: formData['mapId'],
 
@@ -151,7 +153,7 @@ export default class HttpServer {
       currentCount: formData['currentCount'],
     });
 
-    console.log(`Received ping from terra service [${terraServer.clientRegion}][${terraServer.url}][${terraServer.status}][${terraServer.currentCount} of ${terraServer.totalCount}]`);
+    console.log(`Received ping from terra service [${terraServer.clientRegion}][${terraServer.httpUrl}][${terraServer.status}][${terraServer.currentCount} of ${terraServer.totalCount}]`);
     return new Response("", { status: 200 });
   }
 

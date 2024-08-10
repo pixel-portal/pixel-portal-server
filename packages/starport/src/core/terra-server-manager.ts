@@ -10,7 +10,8 @@ export class ServerInformation {
   lastSeenTime: number = 0;
 
   clientIp: string;
-  clientPort: number;
+  clientHttpPort: number;
+  clientPacketPort: number;
 
   clientId: string;
   clientRegion: string;
@@ -29,15 +30,16 @@ export class ServerInformation {
   totalCount: number = 0;
   currentCount: number = 0;
 
-  constructor (clientIp: string, clientPort: number, clientId: string, clientRegion: string) {
+  constructor (clientIp: string, clientHttpPort: number, clientPacketPort: number, clientId: string, clientRegion: string) {
     this.clientIp = clientIp;
-    this.clientPort = clientPort;
+    this.clientHttpPort = clientHttpPort;
+    this.clientPacketPort = clientPacketPort;
     this.clientId = clientId;
     this.clientRegion = clientRegion;
   }
 
-  get url (): string {
-    return `http://${this.clientIp}:${this.clientPort}`;
+  get httpUrl (): string {
+    return `http://${this.clientIp}:${this.clientHttpPort}`;
   }
 
   get status (): string {
@@ -102,11 +104,11 @@ export default class TerraServerManager {
     }
   }
 
-  update (clientIp: string, clientPort: number, clientId: string, clientRegion: string, attributes: ServerAttributes): ServerInformation {
-    const url = `http://${clientIp}:${clientPort}`;
+  update (clientIp: string, clientHttpPort: number, clientPacketPort: number, clientId: string, clientRegion: string, attributes: ServerAttributes): ServerInformation {
+    const url = `http://${clientIp}:${clientHttpPort}`;
     let info = this.serverByUrl.get(url);
     if (!info) {
-      info = new ServerInformation(clientIp, clientPort, clientId, clientRegion);
+      info = new ServerInformation(clientIp, clientHttpPort, clientPacketPort, clientId, clientRegion);
       this.serverByUrl.set(url, info);
     }
 

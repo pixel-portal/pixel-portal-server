@@ -1,5 +1,3 @@
-import nodeDataChannel from 'node-datachannel';
-
 import Server from "./core/server/server";
 import StarportServerClient from "./core/server/starport-server-client";
 import PlayerManager from "./player/player-manager";
@@ -10,7 +8,6 @@ import { GAME_BUFFER_SIZE, SNAPSHOT_BUFFER_SIZE, WORKER_BUFFER_SIZE } from "./wo
 import { loadParameters } from "./core/configuration/parameters";
 import ServerConfiguration from "./core/configuration/server-configuration";
 
-nodeDataChannel.initLogger('Debug');
 
 const PING_INTERVAL = 60000;
 
@@ -41,7 +38,7 @@ const state = {
 };
 
 const playerManager = new PlayerManager(gameState);
-const starportServerClient = new StarportServerClient(configuration.starportEndpoint, configuration.httpPort, configuration.id, configuration.region, gameState, playerManager);
+const starportServerClient = new StarportServerClient(configuration, gameState, playerManager);
 
 const workerPublisher = new WorkerEventPublisher(sharedState);
 const server = Server.create(configuration, playerManager, workerPublisher);

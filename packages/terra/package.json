@@ -7,7 +7,7 @@
   "type": "module",
   "module": "src/index.ts",
   "scripts": {
-    "start": "bun run src/index.ts",
+    "start": "bun run src/index.ts --dev --configuration terra.config.json",
     "compile-win-x64": "bun build --compile --sourcemap --target=bun-windows-x64 src/index.ts --outfile terra-win-x64.exe",
     "compile-arm": "bun build --compile --sourcemap --target=bun-linux-arm64 src/index.ts --outfile terra-arm",
     "compile-x64": "bun build --compile --sourcemap --target=bun-linux-x64 src/index.ts --outfile terra-x64"
