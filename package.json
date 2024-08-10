@@ -1,0 +1,7 @@
+{
+  "name": "pixel-portal-server",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

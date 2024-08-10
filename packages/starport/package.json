@@ -1,0 +1,21 @@
+{
+  "name": "@pixel-portal/starport",
+  "version": "0.0.1",
+  "description": "Authentication, account management, and overall coordination server",
+  "author": "pixel-portal",
+  "license": "MIT",
+  "scripts": {
+    "start": "bun run src/index.ts --dev --configuration starport.config.json",
+    "compile-arm": "bun build --compile --target=bun-linux-arm64 src/index.ts --outfile starport-arm",
+    "compile-x64": "bun build --compile --target=bun-linux-x64 src/index.ts --outfile starport-x64"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "axios": "^1.7.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

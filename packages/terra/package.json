@@ -1,0 +1,28 @@
+{
+  "name": "@pixel-portal/terra",
+  "version": "0.0.1",
+  "description": "Instanced mission and simulation server",
+  "author": "pixel-portal",
+  "license": "MIT",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "compile-win-x64": "bun build --compile --sourcemap --target=bun-windows-x64 src/index.ts --outfile terra-win-x64.exe",
+    "compile-arm": "bun build --compile --sourcemap --target=bun-linux-arm64 src/index.ts --outfile terra-arm",
+    "compile-x64": "bun build --compile --sourcemap --target=bun-linux-x64 src/index.ts --outfile terra-x64"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "^0.13.1",
+    "@geckos.io/server": "^3.0.0",
+    "axios": "^1.7.3",
+    "node-datachannel": "^0.11.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "trustedDependencies": ["node-datachannel"]
+}

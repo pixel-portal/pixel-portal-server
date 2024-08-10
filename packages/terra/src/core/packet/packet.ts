@@ -1,0 +1,3 @@
+
+export const PACKET_TYPE_GAME_UPDATE = 1;
+export const PACKET_TYPE_SNAPSHOT_UPDATE = 2;
