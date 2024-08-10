@@ -42,6 +42,10 @@ export class ServerInformation {
     return `http://${this.clientIp}:${this.clientHttpPort}`;
   }
 
+  get packetUrl (): string {
+    return `http://${this.clientIp}:${this.clientPacketPort}`;
+  }
+
   get status (): string {
     if (this.gameStart === 0 || this.gameEnd === 0) {
       return 'IDLE';

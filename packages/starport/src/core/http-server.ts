@@ -110,7 +110,7 @@ export default class HttpServer {
     }
 
     return Response.json({
-      socketUrl: server.url,
+      socketUrl: terraServer.packetUrl,
       token: token,
       player: {
         uid: userId,
